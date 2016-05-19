@@ -18,6 +18,18 @@
     "trailsjs"
   ],
   "dependencies": {
+    "babel-loader": "^6.2.4",
+    "css-loader": "^0.23.1",
+    "handlebars": "^4.0.5",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
+    "style-loader": "^0.13.1",
+    "todomvc-app-css": "^2.0.6",
     "trailpack-core": "^1.0.0-beta-3",
     "trailpack-footprints": "^1.0.0-beta-7",
     "trailpack-hapi": "^1.0.1",
@@ -30,12 +42,17 @@
     "trails-model": "^1.0.0-beta-2",
     "trails-policy": "^1.0.1",
     "trails-service": "1.0.0-beta-2",
+    "waterline-sqlite3": "^1.0.3",
+    "webpack": "^1.13.0",
     "winston": "^2.2"
   },
   "devDependencies": {
-    "eslint": "^2.8",
-    "eslint-config-trails": "latest",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.10.2",
+    "eslint-config-trails": "^1.0.7",
+    "eslint-plugin-react": "^5.1.1",
     "mocha": "^2.4",
+    "style-loader": "^0.13.1",
     "supertest": "^1.2"
   },
   "scripts": {

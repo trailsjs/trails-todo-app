@@ -12,12 +12,12 @@
 module.exports = [
 
   /**
-   * Render the HelloWorld view
+   * Render the index view
    */
   {
     method: 'GET',
     path: '/',
-    handler: 'ViewController.helloWorld'
+    handler: 'ViewController.index'
   },
 
   /**
@@ -27,5 +27,12 @@ module.exports = [
     method: [ 'GET' ],
     path: '/api/v1/default/info',
     handler: 'DefaultController.info'
+  },
+
+  {
+    method: 'DEL',
+    path: '/api/v1/todo/clear_completed',
+    handler: 'TodoController.clearCompleted'
   }
+
 ]
