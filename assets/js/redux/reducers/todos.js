@@ -6,7 +6,8 @@ import {
   TOGGLE_TODO_COMPLETE_REQUEST,
   TOGGLE_TODO_COMPLETE_SUCCESS,
   TOGGLE_TODO_EDITING,
-  UPDATE_TODO_DESCRIPTION_REQUEST
+  UPDATE_TODO_DESCRIPTION_REQUEST,
+  REMOVE_COMPLETED_TODOS_REQUEST
 } from './../actions'
 
 const todos = (state = [], action) => {
@@ -70,6 +71,11 @@ const todos = (state = [], action) => {
         todo.editing = false
       }
       return todo
+    })
+
+  case REMOVE_COMPLETED_TODOS_REQUEST:
+    return state.filter(todo => {
+      return !todo.completed
     })
 
   default:
