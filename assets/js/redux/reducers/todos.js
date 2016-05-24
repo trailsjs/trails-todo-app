@@ -86,8 +86,14 @@ const todos = (state = initialState, action) => {
 
   case TOGGLE_TODO_EDITING:
     return Object.assign({}, state, {
-      todos: modifyTodo(state.todos, action.id, todo => {
-        todo.editing = !todo.editing
+      todos: state.todos.map(todo => {
+        if (todo.editing) {
+          todo.editing = false
+        }
+        if (todo.id === action.id) {
+          todo.editing = true
+        }
+        return todo
       })
     })
 
