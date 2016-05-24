@@ -27,8 +27,8 @@ function mergeUpdates(collection, updates) {
   })
 }
 
-function modifyTodo(state, todoId, callback) {
-  return state.map(todo => {
+function modifyTodo(todos, todoId, callback) {
+  return todos.map(todo => {
     if (todo.id === todoId) {
       callback(todo)
     }
@@ -36,88 +36,118 @@ function modifyTodo(state, todoId, callback) {
   })
 }
 
-const todos = (state = [], action) => {
+const initialState = {
+  todos: [],
+  filter: 'all'
+}
+
+const todos = (state = initialState, action) => {
 
   let uncompletedTodos = []
 
   switch (action.type) {
 
   case FETCH_TODOS_SUCCESS:
-    return [...action.response]
+    return Object.assign({}, state, {
+      todos: [...action.response]
+    })
 
   case ADD_TODO_REQUEST:
-    return [
-      ...state,
-      {
-        description: action.description,
-        completed: false
-      }
-    ]
+    return Object.assign({}, state, {
+      todos: [
+        ...state,
+        {
+          description: action.description,
+          completed: false
+        }
+      ]
+    })
 
   case ADD_TODO_SUCCESS:
-    return state.map(todo => {
-      if (todo.description === action.response.description) {
-        todo = action.response
-      }
-      return todo
+    return Object.assign({}, state, {
+      todos: state.todos.map(todo => {
+        if (todo.description === action.response.description) {
+          todo = action.response
+        }
+        return todo
+      })
     })
 
   case REMOVE_TODO_REQUEST:
-    return state.filter(todo => {
-      return todo.id !== action.id
+    return Object.assign({}, state, {
+      todos: state.todos.filter(todo => {
+        return todo.id !== action.id
+      })
     })
 
   case TOGGLE_TODO_EDITING:
-    return modifyTodo(state, action.id, todo => {
-      todo.editing = !todo.editing
+    return Object.assign({}, state, {
+      todos: modifyTodo(state.todos, action.id, todo => {
+        todo.editing = !todo.editing
+      })
     })
 
   case TOGGLE_TODO_COMPLETE_REQUEST:
-    return modifyTodo(state, action.id, todo => {
-      todo.completed = !todo.completed
+    return Object.assign({}, state, {
+      todos: modifyTodo(state.todos, action.id, todo => {
+        todo.completed = !todo.completed
+      })
     })
 
   case TOGGLE_TODO_COMPLETE_SUCCESS:
-    return mergeUpdates(state, action.response)
+    return Object.assign({}, state, {
+      todos: mergeUpdates(state.todos, action.response)
+    })
 
   case UPDATE_TODO_DESCRIPTION_REQUEST:
-    return modifyTodo(state, action.id, todo => {
-      todo.description = action.description
-      todo.editing = false
+    return Object.assign({}, state, {
+      todos: modifyTodo(state.todos, action.id, todo => {
+        todo.description = action.description
+        todo.editing = false
+      })
     })
 
   case REMOVE_COMPLETED_TODOS_REQUEST:
-    return state.filter(todo => {
-      return !todo.completed
+    return Object.assign({}, state, {
+      todos: state.todos.filter(todo => {
+        return !todo.completed
+      })
     })
 
   case TOGGLE_TODOS_COMPLETION_REQUEST:
 
     // Find all the todos with { completed: false }
-    uncompletedTodos = state.filter(todo => {
+    uncompletedTodos = state.todos.filter(todo => {
       return !todo.completed
     })
 
     // If all existing todos are completed, set completion for all todos to false
     if (!uncompletedTodos.length) {
-      return state.map(todo => {
-        todo.completed = false
-        return todo
+      return Object.assign({}, state, {
+        todos: state.todos.map(todo => {
+          todo.completed = false
+          return todo
+        })
       })
     }
+
+    // Otherwise, toggle all the todos to true and return the response.
     else {
-      return state.map(todo => {
-        todo.completed = true
-        return todo
+      return Object.assign({}, state, {
+        todos: state.todos.map(todo => {
+          todo.completed = true
+          return todo
+        })
       })
     }
 
   case TOGGLE_TODOS_COMPLETION_SUCCESS:
-    return mergeUpdates(state, action.response)
+    return Object.assign({}, state, {
+      todos: mergeUpdates(state.todos, action.response)
+    })
 
   default:
     return state
-
   }
 
 }
