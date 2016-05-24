@@ -264,6 +264,16 @@ export const removeCompletedTodosFailure = error => {
 export const removeCompletedTodos = () => {
   return dispatch => {
     dispatch(removeCompletedTodosRequest())
-    return fetch('')
+    return fetch('/api/v1/todo?completed=1', {
+      method: 'del'
+    })
+    .then(checkStatus)
+    .then(response => response.json())
+    .then(response => {
+      dispatch(removeCompletedTodosSuccess(response))
+    })
+    .catch(error => {
+      dispatch(removeCompletedTodosFailure(error))
+    })
   }
 }
