@@ -277,3 +277,34 @@ export const removeCompletedTodos = () => {
     })
   }
 }
+
+export const TOGGLE_TODOS_COMPLETION_REQUEST = 'TOGGLE_TODOS_COMPLETION_REQUEST'
+export const TOGGLE_TODOS_COMPLETION_SUCCESS = 'TOGGLE_TODOS_COMPLETION_SUCCESS'
+export const TOGGLE_TODOS_COMPLETION_FAILURE = 'TOGGLE_WORDS_COMPLETION_FAILURE'
+
+export const toggleTodosCompletionRequest = () => {
+  return {
+    type: TOGGLE_TODOS_COMPLETION_REQUEST
+  }
+}
+
+export const toggleTodosCompletionSuccess = response => {
+  return {
+    type: TOGGLE_TODOS_COMPLETION_SUCCESS,
+    response
+  }
+}
+
+export const toggleTodosCompletionFailure = error => {
+  return {
+    type: TOGGLE_TODOS_COMPLETION_FAILURE,
+    error
+  }
+}
+
+export const toggleTodosCompletion = () => {
+  return dispatch => {
+    dispatch(toggleTodosCompletionRequest())
+    return fetch('')
+  }
+}

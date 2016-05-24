@@ -27,6 +27,18 @@ module.exports = [
     method: [ 'GET' ],
     path: '/api/v1/default/info',
     handler: 'DefaultController.info'
+  },
+
+  {
+    method: 'DEL',
+    path: '/api/v1/todo/clear_completed',
+    handler: 'TodoController.clearCompleted'
+  },
+
+  {
+    method: 'GET',
+    path: '/api/v1/todo/toggle_all',
+    handler: 'TodoController.toggleAll'
   }
 
 ]
