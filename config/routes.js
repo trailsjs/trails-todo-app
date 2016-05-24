@@ -36,7 +36,7 @@ module.exports = [
   },
 
   {
-    method: 'GET',
+    method: [ 'PUT' ],
     path: '/api/v1/todo/toggle_all',
     handler: 'TodoController.toggleAll'
   }
