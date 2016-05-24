@@ -9,8 +9,17 @@ import {
   UPDATE_TODO_DESCRIPTION_REQUEST,
   REMOVE_COMPLETED_TODOS_REQUEST,
   TOGGLE_TODOS_COMPLETION_REQUEST,
-  TOGGLE_TODOS_COMPLETION_SUCCESS
+  TOGGLE_TODOS_COMPLETION_SUCCESS,
+  SET_TODOS_FILTER_ALL,
+  SET_TODOS_FILTER_ACTIVE,
+  SET_TODOS_FILTER_COMPLETED
 } from './../actions'
+
+const todoFilters = {
+  all: todo => todo,
+  active: todo => !todo.completed,
+  completed: todo => todo.completed
+}
 
 function mergeUpdates(collection, updates) {
 
@@ -38,7 +47,7 @@ function modifyTodo(todos, todoId, callback) {
 
 const initialState = {
   todos: [],
-  filter: 'all'
+  filter: todoFilters.all
 }
 
 const todos = (state = initialState, action) => {
@@ -55,7 +64,7 @@ const todos = (state = initialState, action) => {
   case ADD_TODO_REQUEST:
     return Object.assign({}, state, {
       todos: [
-        ...state,
+        ...state.todos,
         {
           description: action.description,
           completed: false
@@ -144,6 +153,21 @@ const todos = (state = initialState, action) => {
   case TOGGLE_TODOS_COMPLETION_SUCCESS:
     return Object.assign({}, state, {
       todos: mergeUpdates(state.todos, action.response)
+    })
+
+  case SET_TODOS_FILTER_ALL:
+    return Object.assign({}, {
+      filter: 'all'
+    })
+
+  case SET_TODOS_FILTER_ACTIVE:
+    return Object.assign({}, {
+      filter: 'active'
+    })
+
+  case SET_TODOS_FILTER_COMPLETED:
+    return Object.assign({}, {
+      filter: 'completed'
     })
 
   default:

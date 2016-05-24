@@ -318,3 +318,25 @@ export const toggleTodosCompletion = () => {
     })
   }
 }
+
+export const SET_TODOS_FILTER_ALL = 'SET_TODOS_FILTER_ALL'
+export const SET_TODOS_FILTER_ACTIVE = 'SET_TODOS_FILTER_ACTIVE'
+export const SET_TODOS_FILTER_COMPLETED = 'SET_TODOS_FILTER_COMPLETED'
+
+export const setTodosFilterAll = () => {
+  return {
+    type: SET_TODOS_FILTER_ALL
+  }
+}
+
+export const setTodosFilterActive = () => {
+  return {
+    type: SET_TODOS_FILTER_ACTIVE
+  }
+}
+
+export const setTodosFilterCompleted = () => {
+  return {
+    type: SET_TODOS_FILTER_COMPLETED
+  }
+}
