@@ -265,7 +265,7 @@ export const removeCompletedTodos = () => {
   return dispatch => {
     dispatch(removeCompletedTodosRequest())
     return fetch('/api/v1/todo?completed=1', {
-      method: 'del'
+      method: 'delete'
     })
     .then(checkStatus)
     .then(response => response.json())
