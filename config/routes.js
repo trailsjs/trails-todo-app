@@ -20,6 +20,12 @@ module.exports = [
     handler: 'ViewController.index'
   },
 
+  {
+    method: 'GET',
+    path: '/api/v1/todo/clear_completed',
+    handler: 'TodoController.clearCompleted'
+  },
+
   /**
    * Constrain the DefaultController.info handler to accept only GET requests.
    */
@@ -27,12 +33,6 @@ module.exports = [
     method: [ 'GET' ],
     path: '/api/v1/default/info',
     handler: 'DefaultController.info'
-  },
-
-  {
-    method: 'DEL',
-    path: '/api/v1/todo/clear_completed',
-    handler: 'TodoController.clearCompleted'
   }
 
 ]

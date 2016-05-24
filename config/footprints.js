@@ -23,7 +23,7 @@ module.exports = {
      * List of controllers to ignore; that is, do not generate footprint routes
      * for them.
      */
-    ignore: [ ]
+    ignore: []
   },
 
   /**
