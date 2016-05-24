@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 import {
   FETCH_TODOS_SUCCESS,
   ADD_TODO_REQUEST,
@@ -51,14 +49,18 @@ const todos = (state = [], action) => {
     return [
       ...state,
       {
-        id: state.length + 1,
         description: action.description,
         completed: false
       }
     ]
 
   case ADD_TODO_SUCCESS:
-    return mergeUpdates(state, action.response)
+    return state.map(todo => {
+      if (todo.description === action.response.description) {
+        todo = action.response
+      }
+      return todo
+    })
 
   case REMOVE_TODO_REQUEST:
     return state.filter(todo => {
