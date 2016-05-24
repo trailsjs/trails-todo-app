@@ -8,7 +8,8 @@ class TodoListItems extends Component {
   render() {
     return (
       <section className="main">
-        <TodoListCompleter />
+        <TodoListCompleter
+          dispatch={this.props.dispatch} />
         <ul className="todo-list">
           {this.props.todos.map((todo, index) => {
             return (

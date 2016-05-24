@@ -305,6 +305,16 @@ export const toggleTodosCompletionFailure = error => {
 export const toggleTodosCompletion = () => {
   return dispatch => {
     dispatch(toggleTodosCompletionRequest())
-    return fetch('')
+    return fetch('/api/v1/todo/toggle_all', {
+      method: 'put'
+    })
+    .then(checkStatus)
+    .then(response => response.json())
+    .then(response => {
+      dispatch(toggleTodosCompletionSuccess(response))
+    })
+    .catch(error => {
+      dispatch(toggleTodosCompletionFailure(error))
+    })
   }
 }
