@@ -18,8 +18,4 @@ module.exports = class DefaultController extends Controller {
     reply(this.app.services.DefaultService.getApplicationInfo())
   }
 
-  clearCompleted (request, reply) {
-    reply('this worked!')
-  }
-
 }
