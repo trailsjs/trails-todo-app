@@ -10,13 +10,26 @@ import TodoListFilter from './../organisms/TodoListFilter'
 import TodoListCredits from './../organisms/TodoListCredits'
 import TodoListItems from './../organisms/TodoListItems'
 
+const todoFilters = {
+  all: todo => todo,
+  active: todo => !todo.completed,
+  completed: todo => todo.completed
+}
+
+
 class TodoList extends Component {
 
   componentWillMount() {
     this.props.dispatch(fetchTodos())
   }
 
+  getFilteredTodos() {
+    return this.props.todos.filter(todoFilters[this.props.filter])
+  }
+
   render() {
+
+    const todos = this.getFilteredTodos()
 
     return (
       <div>
@@ -25,12 +38,13 @@ class TodoList extends Component {
             dispatch={this.props.dispatch} />
           <TodoListItems
             dispatch={this.props.dispatch}
-            todos={this.props.todos} />
+            todos={todos} />
           {
             this.props.todos.length >= 1 &&
             <TodoListFilter
               dispatch={this.props.dispatch}
-              todos={this.props.todos} />
+              filter={this.props.filter}
+              todos={todos} />
           }
         </section>
         <TodoListCredits />
@@ -43,7 +57,8 @@ class TodoList extends Component {
 
 TodoList.propTypes = {
   dispatch: PropTypes.func,
-  todos: PropTypes.array
+  todos: PropTypes.array,
+  filter: PropTypes.string
 }
 
 const mapStateToProps = (state) => {

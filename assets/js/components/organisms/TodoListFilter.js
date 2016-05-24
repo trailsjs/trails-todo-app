@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 
 import {
-  removeCompletedTodos
+  removeCompletedTodos,
+  setTodosFilterAll,
+  setTodosFilterActive,
+  setTodosFilterCompleted
 } from './../../redux/actions'
 
 class TodoListFilter extends Component {
@@ -12,13 +15,28 @@ class TodoListFilter extends Component {
     }).length
   }
 
+  setTodosFilterAll (event) {
+    event.preventDefault()
+    this.props.dispatch(setTodosFilterAll())
+  }
+
+  setTodosFilterActive (event) {
+    event.preventDefault()
+    this.props.dispatch(setTodosFilterActive())
+  }
+
+  setTodosFilterCompleted (event) {
+    event.preventDefault()
+    this.props.dispatch(setTodosFilterCompleted())
+  }
+
   removeCompletedTodos() {
     this.props.dispatch(removeCompletedTodos())
   }
 
   render() {
-    // This footer should hidden by default and shown when there are todos
 
+    // This footer should hidden by default and shown when there are todos
     const uncompletedTodos = this.countUncompleted()
     const completedTodos = this.props.todos.length - uncompletedTodos
 
@@ -31,16 +49,24 @@ class TodoListFilter extends Component {
           {uncompletedTodos === 1 ? 'item left' : 'items left'}
         </span>
 
-        {/*} Remove this if you don't implement routing */}
         <ul className="filters">
           <li>
-            <a className="selected" href="#/">All</a>
+            <a
+              onClick={this.setTodosFilterAll.bind(this)}
+              className={this.props.filter === 'all' && 'selected'}
+              href="#">All</a>
           </li>
           <li>
-            <a href="#/active">Active</a>
+            <a
+              onClick={this.setTodosFilterActive.bind(this)}
+              className={this.props.filter === 'active' && 'selected'}
+              href="#">Active</a>
           </li>
           <li>
-            <a href="#/completed">Completed</a>
+            <a
+              onClick={this.setTodosFilterCompleted.bind(this)}
+              className={this.props.filter === 'completed' && 'selected'}
+              href="#">Completed</a>
           </li>
         </ul>
 
@@ -58,6 +84,7 @@ class TodoListFilter extends Component {
 
 TodoListFilter.propTypes = {
   todos: PropTypes.array,
+  filter: PropTypes.string,
   dispatch: PropTypes.func
 }
 
